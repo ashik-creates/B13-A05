@@ -30,7 +30,49 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <h1>how are you</h1>
+    <header class="shadow-sm">
+      <nav class="flex justify-between max-w-[95%] mx-auto">
+        <div class="logo flex justify-center items-center gap-2">
+          <div class="w-9 h-9">
+            <img src="./assets/github-logo.png" alt="logo" class="w-full" />
+          </div>
+          <h1 class="font-bold text-2xl">GitHub Issues Tracker</h1>
+        </div>
+        <div class="flex gap-2 p-4 justify-center items-center">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search here..."
+            class="input input-bordered w-full shadow-sm"
+          />
+          <button
+            id="search-btn"
+            class="btn bg-[#4A00FF] text-white border-none"
+          >
+            Search
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="mt-14">
+      <!-- tabs -->
+      <section class="max-w-10/12 mx-auto">
+        <div id="tabs-container" class="bg-white border border-gray-100 shadow-sm p-4">
+          <button
+            class="btn px-10 btn-first border-none tabs-btn"
+          >
+            All
+          </button>
+          <button class="btn  px-10 tabs-btn">
+            Open
+          </button>
+          <button class="btn  px-10 tabs-btn">
+            Closed
+          </button>
+        </div>
+      </section>
+    </main>
 
     <script src="./script.js"></script>
   </body>
