@@ -9,5 +9,22 @@
 
 .btn-second {
   color: black;
-  border: 1px solid #e5e7eb
+  border: 1px solid #e5e7eb;
+}
+
+.high {
+    background-color: #ebcdcd;
+    color: #EF4444;
+}
+
+.high-border-top {
+  border-top: 3px solid green;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.low-border-top {
+  border-top: 3px solid purple;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
