@@ -1,8 +1,4 @@
 let allIssues = [];
-let openIssues = allIssues.filter((item) => item.status === "open");
-let closedIssues = allIssues.filter((item) => item.status === "closed");
-
-let statusBar = 'all';
 
 document.getElementById("tabs-container").addEventListener("click", (event) => {
   const clickedBtn = event.target.closest(".tabs-btn");
@@ -15,6 +11,20 @@ document.getElementById("tabs-container").addEventListener("click", (event) => {
     });
     clickedBtn.classList.add("btn-first");
     clickedBtn.classList.remove("btn-second");
+    if (clickedBtn.innerText.trim() === "All") {
+      displayAllIssues(allIssues);
+      issuesCount("all");
+    } else if (clickedBtn.innerText.trim() === "Open") {
+      issuesCount("open");
+      let openIssues = allIssues.filter((item) => item.status === "open");
+
+      displayAllIssues(openIssues);
+    } else if (clickedBtn.innerText.trim() === "Closed") {
+      let closedIssues = allIssues.filter((item) => item.status === "closed");
+
+      issuesCount("closed");
+      displayAllIssues(closedIssues);
+    }
   }
 });
 
@@ -22,33 +32,34 @@ const loadAllIssues = async () => {
   const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
   const res = await fetch(url);
   const data = await res.json();
+  console.log(data.data.length);
   allIssues = data.data;
   displayAllIssues(allIssues);
+  issuesCount("all");
 };
 
 function issuesCount(status) {
-  console.log(status)
+  console.log(status);
   const totalIssues = document.getElementById("total-issues");
-  console.log(totalIssues)
-  if(status === 'all'){
+  console.log(totalIssues);
+  if (status === "all") {
     console.log(allIssues.length);
     totalIssues.innerText = allIssues.length;
-  }
-  else if (status === 'open'){
+  } else if (status === "open") {
+    let openIssues = allIssues.filter((item) => item.status === "open");
+
     totalIssues.innerText = openIssues.length;
-  }
-  else if(status === 'closed') {
+  } else if (status === "closed") {
+    let closedIssues = allIssues.filter((item) => item.status === "closed");
+
     totalIssues.innerText = closedIssues.length;
   }
 }
-
-
 
 function displayAllIssues(issues) {
   const issuesContainer = document.getElementById("card-container");
   issuesContainer.innerHTML = "";
   issues.forEach((item) => {
-    allIssues.push(item);
     const newCard = document.createElement("div");
     newCard.innerHTML = `
     <div class="shadow-lg border border-gray-100 ${item.status === "open" ? "high-border-top" : "low-border-top"} space-y-4">
@@ -97,5 +108,3 @@ function displayAllIssues(issues) {
 }
 
 loadAllIssues();
-
-
