@@ -95,11 +95,11 @@ function displayAllIssues(issues) {
   issues.forEach((item) => {
     const newCard = document.createElement("div");
     newCard.innerHTML = `
-    <div class="shadow-lg border border-gray-100 ${item.status === "open" ? "high-border-top" : "low-border-top"} space-y-6 h-full hover:shadow-2xl hover:-translate-y-1 cursor-pointer transition-all duration-300">
+    <div class="shadow-lg border border-gray-100 ${item.status === "open" ? "high-border-top" : "low-border-top"} h-full hover:shadow-2xl hover:-translate-y-1 cursor-pointer transition-all duration-300 flex flex-col">
                <div class="card-upper p-3">
                 <div class="card-head flex justify-between">
                   <div>
-                      <img ${item.status === "open" ? "src='./assets/Open-Status.png'" : "src='./assets/Closed-Status.png'"} alt="">
+                      <img src="${item.status === "open" ? "./assets/Open-Status.png" : "./assets/Closed-Status.png"}">
                   </div>
                   <div class="badge badge-lg ${
                     item.priority === "high"
@@ -112,7 +112,7 @@ function displayAllIssues(issues) {
                   </div>
                 
                 </div> 
-                <div class="card-middle space-y-4">
+                <div class="card-middle space-y-4 grow">
                     <div class="pt-2 space-y-1">
                         <h2 class="font-semibold text-lg">
                             ${item.title}
@@ -126,14 +126,17 @@ function displayAllIssues(issues) {
                     </div>
                 </div>
                </div>
-                <hr class="text-gray-200">
-                <div class="card-lower p-3">
-                  <p class="text-gray-500">
-                    #1 by ${item.author}
-                  </p>
-                  <p class="text-gray-500">
-                    ${new Date(item.createdAt).toLocaleDateString("en-US")}
-                  </p>
+                
+                <div class="card-lower mt-auto">
+                  <hr class="text-gray-200 mb-4 ">
+                  <div class="p-3"> 
+                    <p class="text-gray-500">
+                    #${item.id} by ${item.author}
+                    </p>
+                    <p class="text-gray-500">
+                      ${new Date(item.createdAt).toLocaleDateString("en-US")}
+                    </p>
+                  </div>
                 </div>
             </div>
     `;
