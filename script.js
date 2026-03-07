@@ -29,6 +29,7 @@ document.getElementById("tabs-container").addEventListener("click", (event) => {
 });
 
 const loadAllIssues = async () => {
+  showLoadingSpinner(true);
   const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
   const res = await fetch(url);
   const data = await res.json();
@@ -37,6 +38,19 @@ const loadAllIssues = async () => {
   displayAllIssues(allIssues);
   issuesCount("all");
 };
+
+function showLoadingSpinner(status) {
+  const cardContainer = document.getElementById("card-container");
+  const loadingContainer = document.getElementById("loading-spinner");
+
+  if (status) {
+    cardContainer.classList.add("hidden");
+    loadingContainer.classList.remove("hidden");
+  } else {
+    cardContainer.classList.remove("hidden");
+    loadingContainer.classList.add("hidden");
+  }
+}
 
 function issuesCount(status) {
   console.log(status);
@@ -105,6 +119,7 @@ function displayAllIssues(issues) {
     `;
     issuesContainer.appendChild(newCard);
   });
+  showLoadingSpinner(false);
 }
 
 loadAllIssues();
