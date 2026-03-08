@@ -76,35 +76,30 @@ function displayIssueDetails(issue) {
           <h2 class="text-3xl font-bold mb-4">${issue.title}</h2>
           
           <div class="flex items-center gap-3 text-sm text-gray-500 mb-6 flex-wrap">
-            <div class="badge badge-lg rounded-full bg-green-500 text-white  font-medium">Opened</div>
+            <div class="badge badge-lg rounded-full ${issue.status === "open" ? "bg-open" : "bg-closed"}  font-medium">${issue.status === "open" ? "Opened" : "Closed"}</div>
             <span >•</span>
-            <span>Opened by <span class="font-semibold text-gray-700">Fahim Ahmed</span></span>
+            <span>Opened by <span class="font-semibold text-gray-700">${issue.author}</span></span>
             <span>•</span>
-            <span>22/02/2026</span>
+            <span>${new Date(issue.createdAt).toLocaleDateString("en-US")}</span>
           </div>
 
           <div class="flex gap-2 mb-8">
-            <div class="badge badge-lg high">
-              BUG
-            </div>
-            <div class="badge badge-lg medium">
-              HELP WANTED
-            </div>
+            ${showArrElement(issue.labels)}
           </div>
 
           <p class="text-gray-500 text-lg mb-8">
-            The navigation menu doesn't collapse properly on mobile devices. Need to fix the responsive behavior.
+            ${issue.description}
           </p>
 
           <div class=" rounded-2xl p-6 flex justify-between items-center mb-10">
             <div>
               <p class="text-gray-400 text-sm  mb-1 font-semibold">ASSIGNEE</p>
               <p class="font-bold 
-               text-lg">Fahim Ahmed</p>
+               text-lg">${issue.assignee ? issue.assignee : issue.author}</p>
             </div>
             <div class="text-right">
               <p class="text-gray-400 text-sm  mb-1 font-semibold">PRIORITY</p>
-              <div class="badge badge-lg high">HIGH</div>
+              <div class="badge badge-lg ${issue.priority === "high" ? "high" : issue.priority === "low" ? "low" : "medium"}">${issue.priority.toUpperCase()}</div>
             </div>
           </div>
 
@@ -130,6 +125,21 @@ const loadAllIssues = async () => {
   issuesCount("all");
 };
 
+const loadSearchIssues = async () => {
+  const allBtns = document.querySelectorAll(".tabs-btn");
+  allBtns.forEach((btn) => {
+    btn.classList.add("btn-second");
+    btn.classList.remove("btn-first");
+  });
+  showLoadingSpinner(true);
+  const searchInput = document.getElementById("search-input").value;
+  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchInput}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  displayAllIssues(data.data);
+  issuesCount("search", data.data);
+};
+
 function showLoadingSpinner(status) {
   const cardContainer = document.getElementById("card-container");
   const loadingContainer = document.getElementById("loading-spinner");
@@ -143,7 +153,7 @@ function showLoadingSpinner(status) {
   }
 }
 
-function issuesCount(status) {
+function issuesCount(status, arr = []) {
   const totalIssues = document.getElementById("total-issues");
 
   if (status === "all") {
@@ -156,6 +166,8 @@ function issuesCount(status) {
     let closedIssues = allIssues.filter((item) => item.status === "closed");
 
     totalIssues.innerText = closedIssues.length;
+  } else if (status === "search") {
+    totalIssues.innerText = arr.length;
   }
 }
 
