@@ -73,7 +73,7 @@ function displayIssueDetails(issue) {
   modalContainer.innerHTML = "";
   const newDiv = document.createElement("div");
   newDiv.innerHTML = `
-          <h2 class="text-3xl font-bold mb-4">${issue.title}</h2>
+          <h2 class="text-2xl sm:text-3xl font-bold mb-4">${issue.title}</h2>
           
           <div class="flex items-center gap-3 text-sm text-gray-500 mb-6 flex-wrap">
             <div class="badge badge-lg rounded-full ${issue.status === "open" ? "bg-open" : "bg-closed"}  font-medium">${issue.status === "open" ? "Opened" : "Closed"}</div>
@@ -91,7 +91,7 @@ function displayIssueDetails(issue) {
             ${issue.description}
           </p>
 
-          <div class=" rounded-2xl p-6 flex justify-between items-center mb-10">
+          <div class=" rounded-2xl p-3 sm:p-6 flex justify-between items-center mb-10">
             <div>
               <p class="text-gray-400 text-sm  mb-1 font-semibold">ASSIGNEE</p>
               <p class="font-bold 
