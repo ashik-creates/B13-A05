@@ -95,7 +95,7 @@ function displayIssueDetails(issue) {
             <div>
               <p class="text-gray-400 text-sm  mb-1 font-semibold">ASSIGNEE</p>
               <p class="font-bold 
-               text-lg">${issue.assignee ? issue.assignee : issue.author}</p>
+               text-lg">${issue.assignee ? issue.assignee : "Unassigned"}</p>
             </div>
             <div class="text-right">
               <p class="text-gray-400 text-sm  mb-1 font-semibold">PRIORITY</p>
