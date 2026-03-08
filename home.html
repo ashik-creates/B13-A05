@@ -143,14 +143,11 @@
       </section>
 
       <!-- modal  -->
-      <button onclick="issue_modal.showModal()" class="btn-first  px-6 py-2 rounded-lg font-bold">
-        Open Ticket
-      </button>
 
       <dialog id="issue_modal" class="modal">
         
-        <div class="modal-box">
-          <h2 class="text-3xl font-bold mb-4">Fix broken image uploads</h2>
+        <div id="modal-container" class="modal-box">
+          <!-- <h2 class="text-3xl font-bold mb-4">Fix broken image uploads</h2>
           
           <div class="flex items-center gap-3 text-sm text-gray-500 mb-6 flex-wrap">
             <div class="badge badge-lg rounded-full bg-green-500 text-white  font-medium">Opened</div>
@@ -191,7 +188,12 @@
                 Close
               </button>
             </form>
-          </div>
+          </div> -->
+        </div>
+        <div id="modal-loading-spinner" class="modal-box hidden">
+            <div class="flex justify-center items-center p-20 shadow-lg">
+              <span class="loading loading-spinner loading-xl"></span>
+            </div>
         </div>
       </dialog>
       

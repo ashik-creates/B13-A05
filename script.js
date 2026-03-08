@@ -47,12 +47,84 @@ document.getElementById("tabs-container").addEventListener("click", (event) => {
   }
 });
 
+function modalLoadingSpinner(status) {
+  const modalContainer = document.getElementById("modal-container");
+  const modalSpinner = document.getElementById("modal-loading-spinner");
+  if (status) {
+    modalContainer.classList.add("hidden");
+    modalSpinner.classList.remove("hidden");
+  } else {
+    modalContainer.classList.remove("hidden");
+    modalSpinner.classList.add("hidden");
+  }
+}
+
+const loadIssueDetails = async (id) => {
+  document.getElementById("issue_modal").showModal();
+  modalLoadingSpinner(true);
+  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  displayIssueDetails(data.data);
+};
+
+function displayIssueDetails(issue) {
+  const modalContainer = document.getElementById("modal-container");
+  modalContainer.innerHTML = "";
+  const newDiv = document.createElement("div");
+  newDiv.innerHTML = `
+          <h2 class="text-3xl font-bold mb-4">${issue.title}</h2>
+          
+          <div class="flex items-center gap-3 text-sm text-gray-500 mb-6 flex-wrap">
+            <div class="badge badge-lg rounded-full bg-green-500 text-white  font-medium">Opened</div>
+            <span >•</span>
+            <span>Opened by <span class="font-semibold text-gray-700">Fahim Ahmed</span></span>
+            <span>•</span>
+            <span>22/02/2026</span>
+          </div>
+
+          <div class="flex gap-2 mb-8">
+            <div class="badge badge-lg high">
+              BUG
+            </div>
+            <div class="badge badge-lg medium">
+              HELP WANTED
+            </div>
+          </div>
+
+          <p class="text-gray-500 text-lg mb-8">
+            The navigation menu doesn't collapse properly on mobile devices. Need to fix the responsive behavior.
+          </p>
+
+          <div class=" rounded-2xl p-6 flex justify-between items-center mb-10">
+            <div>
+              <p class="text-gray-400 text-sm  mb-1 font-semibold">ASSIGNEE</p>
+              <p class="font-bold 
+               text-lg">Fahim Ahmed</p>
+            </div>
+            <div class="text-right">
+              <p class="text-gray-400 text-sm  mb-1 font-semibold">PRIORITY</p>
+              <div class="badge badge-lg high">HIGH</div>
+            </div>
+          </div>
+
+          <div class="modal-action">
+            <form method="dialog">
+              <button class="btn btn-first">
+                Close
+              </button>
+            </form>
+          </div>
+  `;
+  modalContainer.append(newDiv);
+  modalLoadingSpinner(false);
+}
+
 const loadAllIssues = async () => {
   showLoadingSpinner(true);
   const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
   const res = await fetch(url);
   const data = await res.json();
-  console.log(data.data.length);
   allIssues = data.data;
   displayAllIssues(allIssues);
   issuesCount("all");
@@ -72,11 +144,9 @@ function showLoadingSpinner(status) {
 }
 
 function issuesCount(status) {
-  console.log(status);
   const totalIssues = document.getElementById("total-issues");
-  console.log(totalIssues);
+
   if (status === "all") {
-    console.log(allIssues.length);
     totalIssues.innerText = allIssues.length;
   } else if (status === "open") {
     let openIssues = allIssues.filter((item) => item.status === "open");
@@ -95,7 +165,7 @@ function displayAllIssues(issues) {
   issues.forEach((item) => {
     const newCard = document.createElement("div");
     newCard.innerHTML = `
-    <div class="shadow-lg border border-gray-100 ${item.status === "open" ? "high-border-top" : "low-border-top"} h-full hover:shadow-2xl hover:-translate-y-1 cursor-pointer transition-all duration-300 flex flex-col">
+    <div onclick="loadIssueDetails(${item.id})" class="shadow-lg border border-gray-100 ${item.status === "open" ? "high-border-top" : "low-border-top"} h-full hover:shadow-2xl hover:-translate-y-1 cursor-pointer transition-all duration-300 flex flex-col">
                <div class="card-upper p-3">
                 <div class="card-head flex justify-between">
                   <div>
