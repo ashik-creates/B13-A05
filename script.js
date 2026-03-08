@@ -126,18 +126,22 @@ const loadAllIssues = async () => {
 };
 
 const loadSearchIssues = async () => {
+  const searchInput = document.getElementById("search-input").value;
+  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchInput}`;
+  if (searchInput === "") {
+    return;
+  }
   const allBtns = document.querySelectorAll(".tabs-btn");
   allBtns.forEach((btn) => {
     btn.classList.add("btn-second");
     btn.classList.remove("btn-first");
   });
   showLoadingSpinner(true);
-  const searchInput = document.getElementById("search-input").value;
-  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchInput}`;
   const res = await fetch(url);
   const data = await res.json();
   displayAllIssues(data.data);
   issuesCount("search", data.data);
+  document.getElementById("search-input").value = "";
 };
 
 function showLoadingSpinner(status) {
