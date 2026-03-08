@@ -57,19 +57,19 @@
 
     <main class="my-14">
       <!-- tabs -->
-      <section class="max-w-[90%] sm:max-w-[85%] mx-auto">
+      <section class="max-w-[90%] sm:max-w-5/6 mx-auto">
         <div
           id="tabs-container"
-          class="bg-white border border-gray-100 shadow-sm p-4"
+          class="bg-white border space-y-1 sm:space-y-0 border-gray-100 shadow-sm p-4"
         >
-          <button class="btn px-10 btn-first border-none tabs-btn">All</button>
-          <button class="btn px-10 tabs-btn">Open</button>
-          <button class="btn px-10 tabs-btn">Closed</button>
+          <button class="btn px-6 sm:px-10 btn-first border-none tabs-btn">All</button>
+          <button class="btn px-6 sm:px-10 tabs-btn">Open</button>
+          <button class="btn px-6 sm:px-10 tabs-btn">Closed</button>
         </div>
       </section>
 
       <!-- issues section  -->
-      <section class="max-w-[90%] sm:max-w-{85%} mx-auto mt-14">
+      <section class="max-w-[90%] sm:max-w-5/6 mx-auto mt-14">
         <!-- issues head  -->
         <div class="head-container flex flex-col sm:flex-row justify-between p-4 shadow-sm items-start sm:items-center gap-y-5 sm:gap-y-0">
           <div class="left flex  justify-center items-center gap-2.5">
@@ -90,7 +90,7 @@
         </div>
     
         <!-- card section  -->
-        <div id="card-container" class="shadow-sm p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2.5">
+        <div id="card-container" class="shadow-sm p-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5">
             <!-- individual card  -->
             <!-- <div class="shadow-xl border border-gray-100 space-y-4">
                <div class="card-upper p-3">
@@ -190,8 +190,9 @@
             </form>
           </div> -->
         </div>
+        
         <div id="modal-loading-spinner" class="modal-box hidden">
-            <div class="flex justify-center items-center p-20 shadow-lg">
+            <div class="flex justify-center items-center p-20 ">
               <span class="loading loading-spinner loading-xl"></span>
             </div>
         </div>
