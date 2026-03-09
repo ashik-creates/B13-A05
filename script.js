@@ -2,7 +2,7 @@ let allIssues = [];
 
 const showArrElement = (arr) => {
   const newArr = arr.map(
-    (item) => `<div class="badge badge-sm text-sm ${
+    (item) => `<div class="badge badge-sm text-xs ${
       item.toLowerCase() === "bug"
         ? "high"
         : item.toLowerCase() === "help wanted"
